@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>LOD Network</title>
+
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/site.css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Oxygen+Mono' rel='stylesheet' type='text/css'>
+<link rel="icon" type="image/png" href="/img/favicon.png">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-modal.js"></script>
+<script src="js/bootstrap-modalmanager.js"></script>
+<script src="js/d3.min.js"></script>
+
+<script type="text/javascript">
+
+
+	var timeout = null;
+	
+	$(document).ready(function($) {
+		
+
+		$("#dbpedia").unbind().keydown(function(event){
+			
+			clearTimeout(timeout);
+			
+			 
+			
+			
+			timeout = setTimeout(function(){ 
+			
+				var text = $("#dbpedia").val(); 
+ 			
+				$.get('http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?MaxHits=5', { QueryString: text }, function (data) {
+
+						  var array = [];
+						  
+						  $("#dbpediaList").val("");
+						  
+						  $(data).find("Result").each(function()
+						  {
+							   
+							array.push($(this).children()[1].textContent);
+							 // $(this).find("URI").each(function(){
+								 
+							//	 console.log($(this)); 
+								  
+							//  });
+							
+							$("#dbpediaList").val($("#dbpediaList").val() + $(this).children()[1].textContent + "\n")
+							
+						  });
+						
+						
+						
+						
+						
+						
+						console.log(array);
+					});
+				
+				
+ 				clearTimeout(timeout);
+				
+			},1000);
+
+
+
+
+			
+		});		
+		 
+				/*
+				//the city type ahead
+				$('#dbpedia').typeahead({
+					
+					source: function (query,process) {
+						
+						//console.log(typeahead);
+						//process(["okayaaaaa","aaaaaaaaaa","bbbbbbbbbb"]);
+						//return typeahead.process({options: ["okay","aaaa","bbbb"]});
+						$.get('http://lookup.dbpedia.org/api/search.asmx/PrefixSearch?QueryClass=&MaxHits=5', { QueryString: query }, function (data) {
+							
+							  var array = [];
+							  $(data).find("Result").each(function()
+							  {
+								   
+								array.push($(this).children()[1].textContent);
+								 // $(this).find("URI").each(function(){
+									 
+								//	 console.log($(this)); 
+									  
+								//  });
+								
+							  });
+							
+							
+							
+							
+							process(array);
+						});
+					},
+					minLength : 5,
+					items : 5
+				});	
+				
+				$('#dbpedia').change(function(){
+					
+					console.log($(this).val());
+					
+				});
+				*/
+				
+				
+			
+		
+	});
+
+
+</script>
+
+
+
+
+
+</head>
+<body>
+    
+    <div class="container">
+    
+    <h5>DBpedia.org</h5>
+    
+    Search: <input type="text" id="dbpedia" name="dbpedia" class="span5"><br>    
+    <textarea id="dbpediaList"  style="height:200px; width:500px;"></textarea>
+   
+   
+   	<h5><a href="http://id.loc.gov/" target="_blank">Library Of Congress</a></h5>
+   	<h5><a href="http://viaf.org" target="_blank">VIAF</a></h5>
+   	<h5><a href="http://freebase.com" target="_blank">Freebase</a></h5>
+   	<h5><a href="http://worldcat.org" target="_blank">Worldcat</a></h5>
+   	<h5><a href="http://data.nytimes.com/" target="_blank">NYT</a></h5>
+    
+     </div>  
+  </body>
+</html>
+ 

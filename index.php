@@ -1046,9 +1046,10 @@
 	?>
 
 		<footer>
-			Created my Matthew Miller. Source Code available: https://github.com/thisismattmiller/triple-builder
+			Created my Matt Miller. Source Code available: <a href="https://github.com/thisismattmiller/triple-builder">https://github.com/thisismattmiller/triple-builder</a><br>
 			Icons: Lego designed by jon trillana, Construction designed by Rediffusion from the Noun Project
 		</footer>
+
 
 	<?php
 		}
